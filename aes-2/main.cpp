@@ -7,7 +7,6 @@ using namespace std;
 using namespace NTL;
 
 // main function
-// test line
 
 int main()
 {
