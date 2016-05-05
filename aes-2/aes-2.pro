@@ -8,10 +8,12 @@ SOURCES += \
     main.cpp \
     util.cpp
 
-HEADERS += \
-    aes.h \
-    util.h
+INCLUDEPATH += \
+    /usr/local/include
 
+INCLUDEPATH += \
+    /usr/local/include
 
 LIBS += \
-    -lntl
+    -L/usr/local/lib -lntl \
+    -lgmp

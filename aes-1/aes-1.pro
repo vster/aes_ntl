@@ -12,5 +12,9 @@ HEADERS += \
     aes.h \
     util.h
 
+INCLUDEPATH += \
+    /usr/local/include
+
 LIBS += \
-    -lntl
+    -L/usr/local/lib -lntl \
+    -lgmp
