@@ -144,7 +144,7 @@ void CopyState ( byte out[4][4], byte in[4][4] )
 			out[i][j] = in[i][j];
 }
 
-// Подстановка
+// Substitution
 void SubBytes ( byte State[4][4] )
 {
 	for ( u32bit i = 0; i < 4; i++ )
@@ -152,7 +152,7 @@ void SubBytes ( byte State[4][4] )
 			State[i][j] = SubBytesTab[State[i][j]/256][State[i][j]%256];
 }
 
-// Обратная подстановка
+// Reverse subst
 void InvSubBytes ( byte State[4][4] )
 {
 	for ( u32bit i = 0; i < 4; i++ )
@@ -160,7 +160,7 @@ void InvSubBytes ( byte State[4][4] )
 			State[i][j] = InvSubBytesTab[State[i][j]/256][State[i][j]%256];
 }
 
-// Перестановка
+// Permutation
 void ShiftOneRow ( byte x[4], int n )
 {
 	byte temp[4];
@@ -175,21 +175,21 @@ void ShiftOneRow ( byte x[4], int n )
 	}
 }
 
-// Перестановка
+// Permutation
 void ShiftRows ( byte State[4][4] )
 {
 	for ( int i = 1; i < 4; i++ )
 		ShiftOneRow ( State[i], i );
 }
 
-// Обратная перестановка
+// Inverse Permutation
 void InvShiftRows ( byte State[4][4] )
 {
 	for ( int i = 1; i < 4; i++ )
 		ShiftOneRow ( State[i], -i );
 }
 
-// Смешивание
+// Mix
 void MixColumns ( byte State[4][4] )
 {
 	ZZ p;
@@ -227,7 +227,7 @@ void MixColumns ( byte State[4][4] )
 			State[i][j] =  (byte) conv <long> ( ZZFromGF2X( tx ) );
 		}
 }
-// Обратное смешивание
+// Inverse Mix
 void InvMixColumns ( byte State[4][4] )
 {
 	ZZ p;
@@ -303,14 +303,14 @@ void GenT ( byte t[4], byte in[4], int round )
 	for ( int j = 0; j < 4; j++ )
 		t[j] = in[j];
 
-	// Сдвигаем на 1 байт
+    // Shift on 1 byte
 	ShiftOneRow ( t, 1 );
 
-	// Подстановка
+    // Substitution
 	for ( u32bit j = 0; j < 4; j++ )
 			t[j] = SubBytesTab[t[j]/256][t[j]%256];
 
-	// Складываем с константой (своя в каждом раунде)
+    // Add with const (own in each rounud)
 	for ( u32bit j = 0; j < 4; j++ )
 		t[j] ^= RCon[round-1][j];
 }
@@ -341,13 +341,13 @@ void Round ( byte State[4][4], byte w[44][4], int round )
 	// cout << "\nStart Round State\n";
 	// OutputState ( State );
 
-	// Подстановка
+    // Subst
 	SubBytes( State );
 
 	// cout << "\nSubBytes\n";
 	// OutputState ( State );
 
-	// Перестановка
+    // Permute
 	ShiftRows ( State );
 
 	// cout << "\nShiftRows\n";
@@ -355,14 +355,14 @@ void Round ( byte State[4][4], byte w[44][4], int round )
 
 	if ( round != 10 )
 	{
-		// Смешивание
+        // Mix
 		MixColumns ( State );
 
 		// cout << "\nMixColumns\n";
 		// OutputState ( State );
 	}
 
-	// Добавление ключей
+    // Add keys
 	AddRoundKey ( State, w, round );
 
 	// cout << "\nFinish Round State\n";
@@ -377,24 +377,24 @@ void InvRound ( byte State[4][4], byte w[44][4], int round )
 	// cout << "\nStart Round State\n";
 	// OutputState ( State );
 
-	// Перестановка
+    // Inv Shift
 	InvShiftRows ( State );
 
 	// cout << "\nInvShiftRows\n";
 	// OutputState ( State );
 
-	// Подстановка
+    // Inv Subst
 	InvSubBytes( State );
 
 	// cout << "\nInvSubBytes\n";
 	// OutputState ( State );
 
-	// Добавление ключей
+    // Inverse Add keys
 	InvAddRoundKey ( State, w, round );
 
 	if ( round != 10 )
 	{
-		// Смешивание
+        // Inverse Mix
 		InvMixColumns ( State );
 
 		// cout << "\nMixColumns\n";
@@ -453,7 +453,7 @@ void DecryptAES ( byte InBlock[16], byte OutBlock[16], byte Key[] )
 	// cout << "\nInitial Matrix\n";
 	// OutputState ( State );
 
-	// Добавление ключей
+    // Add keys
 	int round = 0;
 	InvAddRoundKey ( State, w, round );
 
