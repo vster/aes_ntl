@@ -9,11 +9,11 @@ SOURCES += \
     util.cpp
 
 HEADERS += \
-    aes.h \
-    util.h
+    aes.h
 
 INCLUDEPATH += \
-    /usr/local/include
+    /usr/local/include \
+    ../include
 
 LIBS += \
     -L/usr/local/lib -lntl \

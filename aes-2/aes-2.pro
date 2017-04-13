@@ -9,11 +9,12 @@ SOURCES += \
     util.cpp
 
 INCLUDEPATH += \
-    /usr/local/include
-
-INCLUDEPATH += \
-    /usr/local/include
+    /usr/local/include \
+    ../include
 
 LIBS += \
     -L/usr/local/lib -lntl \
     -lgmp
+
+HEADERS += \
+    aes.h
