@@ -16,5 +16,4 @@ LIBS += \
     -L/usr/local/lib -lntl \
     -lgmp
 
-HEADERS += \
-    aes.h
+HEADERS +=

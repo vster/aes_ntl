@@ -8,8 +8,7 @@ SOURCES += \
     main.cpp \
     util.cpp
 
-HEADERS += \
-    aes.h
+HEADERS +=
 
 INCLUDEPATH += \
     /usr/local/include \

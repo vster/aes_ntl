@@ -87,7 +87,7 @@ void output_bin ( T x, int len )
 	for ( int j = len-1; j >= 0; j-- )
 	{
 		cout << ((x >> j) & 1 );
-		// if ( j%8 == 0 )
-		//	cout << " ";
+        if ( j%8 == 0 )
+            cout << " ";
 	}
 }
