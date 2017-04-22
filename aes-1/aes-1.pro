@@ -12,9 +12,7 @@ HEADERS += \
     aes.h
 
 INCLUDEPATH += \
-    /usr/local/include \
-    ../include
+    ../include ../../include
 
 LIBS += \
-    -L/usr/local/lib -lntl \
-    -lgmp
+    -L../../lib -lntl
